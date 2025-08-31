@@ -1,1 +1,9 @@
-
+{
+  "name": "SIH25008 \u2014 Disaster Prep Education",
+  "short_name": "SIH25008",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": []
+}
