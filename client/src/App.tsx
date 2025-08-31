@@ -7,8 +7,9 @@ import Learn from './components/Learn'
 import Drills from './components/Drills'
 import Directory from './components/Directory'
 import Dashboard from './components/Dashboard'
+import AddDrill from './pages/AddDrill' // new AddDrill page
 
-type Tab = 'Home' | 'Learn' | 'Drills' | 'Directory' | 'Dashboard'
+type Tab = 'Home' | 'Learn' | 'Drills' | 'Directory' | 'Dashboard' | 'AddDrill'
 
 export default function App() {
   const [tab, setTab] = useState<Tab>('Home')
@@ -20,6 +21,8 @@ export default function App() {
     socket.on('alert:new', (data) => setIncoming(data))
     return () => { socket.disconnect() }
   }, [])
+
+  const tabs: Tab[] = ['Home','Learn','Drills','Directory','Dashboard','AddDrill']
 
   return (
     <div className='min-h-full'>
@@ -54,10 +57,16 @@ export default function App() {
       )}
 
       <nav className='container mt-4'>
-        <div className='grid grid-cols-5 gap-2'>
-          {(['Home','Learn','Drills','Directory','Dashboard'] as Tab[]).map(name => (
-            <button key={name} className={'btn ' + (tab===name ? 'btn-primary' : 'btn-secondary')} onClick={() => setTab(name)}>{name}</button>
-          ))}
+        <div className='grid grid-cols-6 gap-2'>
+          {tabs.map(name => {
+            // Hide AddDrill tab for students
+            if(name === 'AddDrill' && role === 'Student') return null
+            return (
+              <button key={name} className={'btn ' + (tab===name ? 'btn-primary' : 'btn-secondary')} onClick={() => setTab(name)}>
+                {name === 'AddDrill' ? 'Add Drill' : name}
+              </button>
+            )
+          })}
         </div>
       </nav>
 
@@ -67,6 +76,7 @@ export default function App() {
         {tab === 'Drills' && <Drills />}
         {tab === 'Directory' && <Directory />}
         {tab === 'Dashboard' && <Dashboard />}
+        {tab === 'AddDrill' && <AddDrill />}
       </main>
 
       <footer className='container py-6 text-center text-sm text-gray-500'>
