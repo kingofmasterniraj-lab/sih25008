@@ -1,0 +1,14 @@
+{
+  "name": "sih25008",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm --prefix server install && npm --prefix client install",
+    "dev": "concurrently \"npm --prefix server run start\" \"npm --prefix client run dev\"",
+    "build": "npm --prefix client run build && mkdir -p server/public && cp -r client/dist/* server/public/",
+    "seed": "npm --prefix server run seed",
+    "start": "NODE_ENV=production node server/index.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
