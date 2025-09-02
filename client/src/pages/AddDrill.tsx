@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react'
-import { api } from '../api'
+import { api } from './api'
 
 export default function AddDrill() {
   const [title, setTitle] = useState('')
